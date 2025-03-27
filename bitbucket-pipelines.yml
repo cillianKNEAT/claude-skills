@@ -13,7 +13,7 @@ definitions:
               SSH_KEY: $WPENGINE_SSH_KEY
               MODE: 'command'
               COMMAND: |
-                cd /nas/content/live/kneatstg/wp-content/plugins/webinar-autodraft
+                cd /nas/content/live/kneatstg/wp-content
                 git fetch origin dev
                 git reset --hard origin/dev
 
@@ -28,7 +28,7 @@ definitions:
               SSH_KEY: $WPENGINE_SSH_KEY
               MODE: 'command'
               COMMAND: |
-                cd /nas/content/live/kneat/wp-content/plugins/webinar-autodraft
+                cd /nas/content/live/kneat/wp-content
                 git fetch origin master
                 git reset --hard origin/master
 

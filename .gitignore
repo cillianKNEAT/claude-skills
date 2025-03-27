@@ -43,3 +43,5 @@ yarn.lock
 *.map
 *.min.js
 *.min.css
+*.zip
+*.tar.gz

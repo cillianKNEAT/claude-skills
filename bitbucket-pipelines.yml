@@ -2,16 +2,20 @@ image: atlassian/default-image:4
 
 pipelines:
   branches:
-    master:
-      - step:
-          script:
-            - ssh-keyscan git.wpengine.com >> ~/.ssh/known_hosts
-            - git push git@git.wpengine.com:kneat.git master
-            - echo "Deployment to production completed"
-
     dev:
       - step:
+          name: Deploy to Dev
           script:
-            - ssh-keyscan git.wpengine.com >> ~/.ssh/known_hosts
-            - git push git@git.wpengine.com:kneatstg.git dev
-            - echo "Deployment to development completed"
+          - pipe: wpengine/wpe-site-deploy:v1
+            variables:
+              WPE_SSHG_KEY_PRIVATE: $WPE_SSHG_KEY_PRIVATE
+              WPE_ENV: kneatstg
+    master:
+      - step:
+          name: Deploy to Production
+          script:
+          - pipe: wpengine/wpe-site-deploy:v1
+            variables:
+              WPE_SSHG_KEY_PRIVATE: $WPE_SSHG_KEY_PRIVATE
+              WPE_ENV: kneat
+    

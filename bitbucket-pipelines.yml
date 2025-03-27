@@ -8,14 +8,14 @@ definitions:
         script:
           - pipe: atlassian/ssh-run:0.4.1
             variables:
-              SSH_USER: 'kneatstg'
+              SSH_USER: 'kneatstg-butbucket-cbracken'
               SERVER: 'kneatstg.ssh.wpengine.net'
               SSH_KEY: $WPENGINE_SSH_KEY
               MODE: 'command'
               COMMAND: |
                 cd /nas/content/live/kneatstg/wp-content
                 git fetch origin dev
-                git reset --hard origin/dev
+                git pull origin dev
 
     - step: &deploy-production
         name: Deploy to WP Engine Production
@@ -23,14 +23,14 @@ definitions:
         script:
           - pipe: atlassian/ssh-run:0.4.1
             variables:
-              SSH_USER: 'kneat'
+              SSH_USER: 'kneatstg-butbucket-cbracken'
               SERVER: 'kneat.ssh.wpengine.net'
               SSH_KEY: $WPENGINE_SSH_KEY
               MODE: 'command'
               COMMAND: |
                 cd /nas/content/live/kneat/wp-content
                 git fetch origin master
-                git reset --hard origin/master
+                git pull origin master
 
 pipelines:
   branches:

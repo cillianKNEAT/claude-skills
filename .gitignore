@@ -15,18 +15,6 @@ wp-content/plugins/hello.php
 wp-admin/
 wp-includes/
 
-# WordPress core files
-*.php
-*.css
-*.js
-*.txt
-*.xml
-*.json
-*.md
-*.sql
-*.zip
-*.tar.gz
-
 # OS generated files
 .DS_Store
 .DS_Store?

@@ -11,6 +11,7 @@ definitions:
               SSH_USER: 'kneatstg'
               SERVER: 'kneatstg.ssh.wpengine.net'
               SSH_KEY: $WPENGINE_SSH_KEY
+              MODE: 'command'
               COMMAND: |
                 cd /nas/content/live/kneatstg/wp-content/plugins/webinar-autodraft
                 git fetch origin dev
@@ -25,6 +26,7 @@ definitions:
               SSH_USER: 'kneat'
               SERVER: 'kneat.ssh.wpengine.net'
               SSH_KEY: $WPENGINE_SSH_KEY
+              MODE: 'command'
               COMMAND: |
                 cd /nas/content/live/kneat/wp-content/plugins/webinar-autodraft
                 git fetch origin master

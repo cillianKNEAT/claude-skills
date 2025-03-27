@@ -1,0 +1,89 @@
+.brxe-filter {
+  &-checkbox,
+  &-radio {
+    li {
+      + li {
+        margin-top: 28px;
+      }
+
+      label {
+        $checkbox_size: 18px;
+
+        position: relative;
+
+        input {
+          width: $checkbox_size;
+          height: $checkbox_size;
+          position: absolute;
+          top: 0;
+          left: 0;
+          opacity: 0;
+
+          + .brx-option-text {
+            display: block;
+            position: relative;
+            padding-left: calc(#{$checkbox_size} + 10px);
+
+            &::before,
+            &::after {
+              content: "";
+              display: block;
+              width: $checkbox_size;
+              height: $checkbox_size;
+              border: 2px solid #4a4a4a;
+              border-radius: 4px;
+              position: absolute;
+              top: 3px;
+              left: 0;
+              transition: background-color .3s;
+            }
+
+            &::after {
+              content: "\f2bc";
+              color: var(--accent);
+              font-size: .8em;
+              font-weight: 700;
+              font-family: Ionicons;
+              line-height: 1.2;
+              text-rendering: auto;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding-top: 1px;
+              opacity: 0;
+              transition: opacity .3s;
+            }
+          }
+
+          &:checked {
+            + .brx-option-text {
+              &::before,
+              &::after {
+                border-color: var(--accent);
+              }
+
+              &::after {
+                opacity: 1;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &-radio {
+    li {
+      label {
+        input {
+          + .brx-option-text {
+            &::before,
+            &::after {
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

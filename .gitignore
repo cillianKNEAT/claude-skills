@@ -45,3 +45,6 @@ yarn.lock
 *.min.css
 *.zip
 *.tar.gz
+
+# WPEngine specific files
+wp-content/mu-plugins/wpengine-common/

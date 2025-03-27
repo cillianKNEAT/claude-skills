@@ -1,17 +1,39 @@
-image: atlassian/default-image:4
+image: php:7.4-cli
+
+definitions:
+  steps:
+    - step: &deploy-staging
+        name: Deploy to WP Engine Staging
+        deployment: staging
+        script:
+          - pipe: atlassian/ssh-run:0.4.1
+            variables:
+              SSH_USER: 'kneatstg'
+              SERVER: 'kneatstg.ssh.wpengine.net'
+              SSH_KEY: $WPENGINE_SSH_KEY
+              COMMAND: |
+                cd /nas/content/live/kneatstg/wp-content/plugins/webinar-autodraft
+                git fetch origin dev
+                git reset --hard origin/dev
+
+    - step: &deploy-production
+        name: Deploy to WP Engine Production
+        deployment: production
+        script:
+          - pipe: atlassian/ssh-run:0.4.1
+            variables:
+              SSH_USER: 'kneat'
+              SERVER: 'kneat.ssh.wpengine.net'
+              SSH_KEY: $WPENGINE_SSH_KEY
+              COMMAND: |
+                cd /nas/content/live/kneat/wp-content/plugins/webinar-autodraft
+                git fetch origin master
+                git reset --hard origin/master
 
 pipelines:
   branches:
     master:
-      - step:
-          script:
-            - ssh-keyscan git.wpengine.com >> ~/.ssh/known_hosts
-            - git push git@git.wpengine.com:kneat.git master
-            - echo "Deployment to production completed"
+      - step: *deploy-production
 
     dev:
-      - step:
-          script:
-            - ssh-keyscan git.wpengine.com >> ~/.ssh/known_hosts
-            - git push git@git.wpengine.com:kneatstg.git dev
-            - echo "Deployment to development completed"
+      - step: *deploy-staging

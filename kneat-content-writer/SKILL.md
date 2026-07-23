@@ -1,6 +1,6 @@
 ---
 name: kneat-content-writer
-description: Collaborative content creation skill for Kneat Solutions. This skill should be used when a user wants to write, outline, draft, research, or refine any content for Kneat, including blog posts, thought leadership articles, technical white papers, marketing copy, email campaigns, ads, and case studies. Triggers include requests to write a blog post, draft a white paper, help outline an article, create marketing copy, write a case study, or any content creation task for Kneat. Applies Kneat editorial standards throughout the writing process and runs a final compliance check before delivery. Complements the kneat-content-editor skill, which handles post-hoc review of existing documents. This skill is for creating new content from scratch.
+description: Collaborative content creation skill for Kneat Solutions. This skill should be used when a user wants to write, outline, draft, research, or refine any content for Kneat, including blog posts, thought leadership articles, technical white papers, marketing copy, email campaigns, ads, case studies, and LinkedIn/email outreach copy (sales outreach messages and follow-up emails). Triggers include requests to write a blog post, draft a white paper, help outline an article, create marketing copy, write a case study, draft a LinkedIn outreach message, write a sales email, draft a follow-up email, or any content creation task for Kneat. Applies Kneat editorial standards throughout the writing process, and applies additional outreach-specific style rules for LinkedIn/email copy, running a final compliance check before delivery. Complements the kneat-content-editor skill, which handles post-hoc review of existing documents. This skill is for creating new content from scratch.
 ---
 
 # Kneat Content Writer
@@ -14,6 +14,8 @@ This skill complements the **kneat-content-editor** skill. Use this skill to *cr
 ## Before Starting Any Content
 
 Load `references/editorial-standards.md` and keep it active throughout the entire writing session. Every sentence produced must conform to these standards — they are not applied as a final pass alone but are baked into every draft from the first word.
+
+If the request is for LinkedIn or email outreach copy (sales outreach, follow-up emails, or similar prospect-facing messages), also load `references/outreach-guidelines.md` and keep it active alongside the editorial standards. See the **Outreach Copy** section under Capabilities for the dedicated workflow.
 
 ### Core Editorial Rules (Always Active)
 
@@ -38,6 +40,7 @@ These rules from the editorial standards must be applied continuously during dra
 ## When to Use This Skill
 
 - Writing any content for Kneat — blog posts, white papers, marketing copy, case studies, internal communications, or anything else
+- Drafting LinkedIn or email outreach copy — sales outreach messages or follow-up emails
 - Outlining, researching, or structuring a piece of content
 - Improving hooks, introductions, or section flow
 - Getting section-by-section feedback during drafting
@@ -139,6 +142,25 @@ These principles apply regardless of content type:
 ---
 
 ## Capabilities
+
+### Outreach Copy (LinkedIn / Email)
+
+Use this workflow for any LinkedIn message or email that reaches out to a prospect or customer — sales outreach, follow-ups, or similar. This is a distinct, shorter workflow from the long-form Writing Process above; do not run the full outline/research/section-by-section process for a short outreach message.
+
+Before drafting, load `references/outreach-guidelines.md` in full and keep it active — the rules below are only a summary, and the reference file (General Style, Sales Outreach, Call to Action, LinkedIn Outreach, Follow-Up Emails, Things to Avoid, and AI Guidance sections) is the source of truth. In particular, do not skip the **Things to Avoid** and **AI Guidance** sections — they cover fabrication risks (never invent company initiatives or details not provided or public) and common failure patterns that are easy to miss if only skimming this summary.
+
+Clarify with the user first (if not already known):
+
+- **Channel**: LinkedIn message or email?
+- **Stage**: first-touch sales outreach, or a follow-up to a prior message?
+- **Recipient**: role, industry, and company context — outreach must center the recipient's likely priorities and challenges, so this is essential
+- **Angle**: is there a specific trigger (news, event, mutual connection, content download) or should the message lead purely with an industry/role-based problem? If personalization detail isn't available, follow the AI Guidance section — write a strong industry-specific message rather than inventing detail
+
+Then draft according to the channel and stage (email vs. LinkedIn; first-touch vs. follow-up) and the full rule set in `outreach-guidelines.md` — this covers structure (problem → measurable impact → Kneat's relevance → conversation), proof points, subject lines, CTA rules (no time ask on a first touch, exactly one question), and tone.
+
+After drafting, run the **Quick Self-Check for Outreach Copy** from `references/outreach-guidelines.md` before delivering the message. This replaces the full Final Compliance Check for outreach copy — the full checklist is designed for long-form content and includes items (hook, CTA structure, citation, section flow) that do not apply to a short outreach message. Still confirm core editorial mechanics (spelling, Oxford comma, em-dash formatting) are correct even in short copy.
+
+Deliver outreach copy inline in the conversation by default, since it's typically short enough to review directly — offer a file only if the user asks for one or requests multiple variants to compare.
 
 ### Research Assistance
 
@@ -311,4 +333,4 @@ Always include the completed compliance checklist at the end of the delivered co
 - **kneat-content-editor**: Use for reviewing *existing* content against editorial standards. If a user uploads a document for review, defer to that skill.
 - **branded-frontend**: Use if the content needs to be rendered as a web page or UI component with Kneat's visual identity.
 
-This skill focuses exclusively on *creating new content* from scratch and guiding the user through the writing process.
+This skill focuses exclusively on *creating new content* from scratch and guiding the user through the writing process — from long-form content like blog posts and white papers through to short-form LinkedIn/email outreach copy.

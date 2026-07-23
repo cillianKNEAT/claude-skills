@@ -1,206 +1,336 @@
 ---
-name: kneat-content-editor
-description: Invoke when user says "Kneat S&G review", "Kneat S and G review", "Kneat style and grammar review", or close variants. Reviews content against Kneat Solutions editorial standards for spelling, grammar, style, and brand voice. This skill is for reviewing existing content only. If the user wants to create new content from scratch, defer to the kneat-content-writer skill.
+name: kneat-content-writer
+description: Collaborative content creation skill for Kneat Solutions. This skill should be used when a user wants to write, outline, draft, research, or refine any content for Kneat, including blog posts, thought leadership articles, technical white papers, marketing copy, email campaigns, ads, case studies, and LinkedIn/email outreach copy (sales outreach messages and follow-up emails). Triggers include requests to write a blog post, draft a white paper, help outline an article, create marketing copy, write a case study, draft a LinkedIn outreach message, write a sales email, draft a follow-up email, or any content creation task for Kneat. Applies Kneat editorial standards throughout the writing process, and applies additional outreach-specific style rules for LinkedIn/email copy, running a final compliance check before delivery. Complements the kneat-content-editor skill, which handles post-hoc review of existing documents. This skill is for creating new content from scratch.
 ---
 
-# Kneat Content Editor
+# Kneat Content Writer
 
 ## Overview
 
-To review documents against Kneat Solutions' editorial standards and produce a structured analysis report. This skill applies to any written content produced by or for Kneat Solutions, including marketing copy, technical documentation, web content, and internal communications.
+A collaborative writing partner for Kneat Solutions content. This skill guides the full content lifecycle — from ideation and outlining through research, drafting, and polish — while enforcing Kneat editorial standards at every stage. The output is publication-ready content that sounds like Kneat and meets the brand's quality bar.
 
-Detailed editorial standards are in `references/editorial-standards.md`. Load that file before beginning any review.
+This skill complements the **kneat-content-editor** skill. Use this skill to *create* content. Use the editor skill to *review* existing content.
+
+## Before Starting Any Content
+
+Load `references/editorial-standards.md` and keep it active throughout the entire writing session. Every sentence produced must conform to these standards — they are not applied as a final pass alone but are baked into every draft from the first word.
+
+If the request is for LinkedIn or email outreach copy (sales outreach, follow-up emails, or similar prospect-facing messages), also load `references/outreach-guidelines.md` and keep it active alongside the editorial standards. See the **Outreach Copy** section under Capabilities for the dedicated workflow.
+
+### Core Editorial Rules (Always Active)
+
+These rules from the editorial standards must be applied continuously during drafting, not deferred to review:
+
+- **American English** spelling throughout (realize, organize, center)
+- **Oxford comma** in every list, no exceptions
+- **No passive voice** unless grammatically unavoidable
+- **Maximum 25 words per sentence** — restructure if longer
+- **Numbers**: write out one through nine; numerals for 10+; always use % symbol
+- **Abbreviations**: no periods (FDA, ISPE, SaaS); spell out on first use with abbreviation in parentheses
+- **Ampersands**: "&" only in titles and brand names; "and" in all body copy
+- **Em-dashes**: true em-dash (—) with one space either side
+- **Organisation names as singular**: "FDA has released" not "FDA have released"
+- **Non-honorific attribution**: "Ben Finnan said" not "Mr. Finnan said"
+- **Dates**: Month Day, Year (December 13, 2021)
+- **Time**: 4:00 PM format
+- **Currency**: $33 not $33.00 (unless cents required)
+- **Quotation marks**: American style, punctuation inside closing quotes
+- **Tone**: confident, clear, concise — technically precise but accessible; collaborative partner voice
 
 ## When to Use This Skill
 
-- A user says "Kneat S&G review", "Kneat S and G review", "Kneat style and grammar review", or a close variant
-- A user pastes or uploads a document for editorial review against Kneat standards
+- Writing any content for Kneat — blog posts, white papers, marketing copy, case studies, internal communications, or anything else
+- Drafting LinkedIn or email outreach copy — sales outreach messages or follow-up emails
+- Outlining, researching, or structuring a piece of content
+- Improving hooks, introductions, or section flow
+- Getting section-by-section feedback during drafting
+- Ensuring content meets Kneat editorial standards before publication
 
-## Accepted Input Formats
+## Writing Process
 
-Users may provide content in any of the following ways:
+This process applies to any content — blog posts, white papers, marketing copy, case studies, internal communications, or anything else. Adapt the depth and formality of each step to fit the scope of the piece.
 
-- **Uploaded .docx file** — full tracked changes and comments output available (see Output Modes below)
-- **Uploaded .pdf, .txt, .md, or similar** — inline report only
-- **Pasted text** — inline report only
+### Step 1: Understand the Brief
 
-When a file is uploaded, extract all readable text before beginning the review. If the file cannot be read or parsed, inform the user and ask them to paste the content as text instead.
+Before writing, clarify the following. Ask the user directly if any are unclear:
 
-Do not ask the user to clarify the input format — accept whatever is provided and proceed directly to the review.
+- **Topic and core message**: What is this about, and what is the single most important takeaway?
+- **Audience**: Who is reading this? What do they already know? What do they care about?
+- **Goal**: Educate, persuade, announce, convert, inform, or something else?
+- **Format and length**: What type of content, and roughly how long?
+- **Existing material**: Any sources, data, drafts, or reference content to build from?
+- **Tone within Kneat's range**: Kneat's voice is always confident, clear, and precise — but the register can shift from deeply technical to broadly accessible depending on the audience
 
-## Output Modes
+### Step 2: Build the Outline
 
-### When input is a .docx file — ask the user which output they prefer:
+Collaborate with the user on structure before drafting. A good outline identifies the key sections, flags where research is needed, and establishes the logical flow.
 
-> "I can return this as:
-> **(A) An inline review report** — issues listed with explanations, or
-> **(B) A reviewed .docx file** — tracked changes for spelling and grammar corrections, plus comments for style and brand voice issues, ready to review in Word.
-> Which would you prefer?"
+```markdown
+# [Working Title]
 
-Wait for their response before proceeding.
+## Opening
+- [Hook — story, data point, bold claim, or question]
+- [Why the reader should care]
 
-**If they choose (A):** follow the Inline Report workflow below.
+## Context / Background
+- [Set the scene — what the reader needs to know first]
 
-**If they choose (B):** follow the Tracked Changes + Comments workflow below.
+## Core Sections
+### [Section 1 Title]
+- Key point + supporting evidence
+- [Research needed: ___]
 
-### When input is any other format — produce the Inline Report only, no need to ask.
+### [Section 2 Title]
+- Key point + example or data
+- [Research needed: ___]
+
+### [Section 3 Title] (as many as needed)
+- Key point
+- [Research needed: ___]
+
+## Takeaways / Conclusion
+- Summary of main points
+- Call to action or forward-looking thought (where appropriate)
+
+## Research To-Do
+- [ ] [Specific data, source, or fact to find]
+```
+
+Iterate on the outline based on user feedback. Ensure logical flow, identify gaps, and mark sections that need research before drafting begins.
+
+### Step 3: Research
+
+When research is needed — either flagged in the outline or requested by the user:
+
+1. Search for relevant, credible information using web search
+2. Prioritise high-quality sources: regulatory bodies (FDA, EMA), industry associations (ISPE, PDA), peer-reviewed publications, analyst firms (Gartner, Forrester), and official company sources
+3. Present findings clearly with citations (see Citation Management below)
+4. Flag any claims that need internal verification before publication
+5. Slot findings into the relevant outline sections
+
+### Step 4: Draft Section by Section
+
+Write each section in sequence. After completing each section, review it for:
+
+- Editorial compliance (apply all rules from the Core Editorial Rules above)
+- Clarity and flow
+- Evidence for any claims made
+- Appropriate tone and technical precision
+
+Offer feedback and suggestions after each section before moving to the next. This incremental approach catches issues early and keeps the user involved.
+
+### Step 5: Strengthen the Opening
+
+Once the body is drafted, revisit the opening. If it needs work, offer 2–3 alternative hooks (see Hook Improvement below). The opening should create curiosity, promise value, and match both the audience and Kneat's tone.
+
+### Step 6: Final Compliance Check
+
+Run the mandatory compliance checklist (see Final Compliance Check below) against the complete draft. Fix any issues before delivery. This step is non-skippable.
+
+### Kneat Content Principles
+
+These principles apply regardless of content type:
+
+- Lead with insight and value, not product features
+- Position Kneat as a knowledgeable partner — collaborative, not corporate; authoritative, not salesy
+- Reference regulatory frameworks and industry terminology with precision (GxP, 21 CFR Part 11, Annex 11, IQ, OQ, PQ, CSV, GAMP)
+- Every claim must be supportable — do not overstate
+- Quantify outcomes wherever possible (percentages, time saved, cost reduction)
+- Write for a North American and Northern European audience — avoid region-specific idioms
+- Sentence case for web headings; title case for print headings
 
 ---
 
-## Workflow A: Inline Report
+## Capabilities
 
-### Step 1: Load Standards
-Load `references/editorial-standards.md`. All judgements must be grounded in those rules.
+### Outreach Copy (LinkedIn / Email)
 
-### Step 2: Analyse the Document
-Scan for issues across four categories:
-- **Spelling** — American English, proper nouns, typos
-- **Grammar** — passive voice, sentence length, tense, subject-verb agreement, Oxford comma
-- **Style** — abbreviations, numbers, dates, times, currency, em-dash spacing, ampersand usage, heading case, percentages
-- **Brand Voice** — tone, organisation name usage, honorifics, technical precision, sentence structure
+Use this workflow for any LinkedIn message or email that reaches out to a prospect or customer — sales outreach, follow-ups, or similar. This is a distinct, shorter workflow from the long-form Writing Process above; do not run the full outline/research/section-by-section process for a short outreach message.
 
-### Step 3: Produce the Report
+Before drafting, load `references/outreach-guidelines.md` in full and keep it active — the rules below are only a summary, and the reference file (General Style, Sales Outreach, Call to Action, LinkedIn Outreach, Follow-Up Emails, Things to Avoid, and AI Guidance sections) is the source of truth. In particular, do not skip the **Things to Avoid** and **AI Guidance** sections — they cover fabrication risks (never invent company initiatives or details not provided or public) and common failure patterns that are easy to miss if only skimming this summary.
 
-Output in this exact structure:
+Clarify with the user first (if not already known):
 
----
+- **Channel**: LinkedIn message or email?
+- **Stage**: first-touch sales outreach, or a follow-up to a prior message?
+- **Recipient**: role, industry, and company context — outreach must center the recipient's likely priorities and challenges, so this is essential
+- **Angle**: is there a specific trigger (news, event, mutual connection, content download) or should the message lead purely with an industry/role-based problem? If personalization detail isn't available, follow the AI Guidance section — write a strong industry-specific message rather than inventing detail
 
-## 📋 Document Analysis Summary
+Then draft according to the channel and stage (email vs. LinkedIn; first-touch vs. follow-up) and the full rule set in `outreach-guidelines.md` — this covers structure (problem → measurable impact → Kneat's relevance → conversation), proof points, subject lines, CTA rules (no time ask on a first touch, exactly one question), and tone.
 
-File: [filename or "Pasted content"]
-Word Count: [count]
-Issues Found: [total]
+After drafting, run the **Quick Self-Check for Outreach Copy** from `references/outreach-guidelines.md` before delivering the message. This replaces the full Final Compliance Check for outreach copy — the full checklist is designed for long-form content and includes items (hook, CTA structure, citation, section flow) that do not apply to a short outreach message. Still confirm core editorial mechanics (spelling, Oxford comma, em-dash formatting) are correct even in short copy.
 
-🔤 Spelling: [number]
-📝 Grammar: [number]
-🎯 Style: [number]
-🏢 Brand Voice: [number]
+Deliver outreach copy inline in the conversation by default, since it's typically short enough to review directly — offer a file only if the user asks for one or requests multiple variants to compare.
 
----
+### Research Assistance
 
-## 🔍 Inline Review with Embedded Issues
+When the user requests research on a topic:
 
-Return only sentences that contain issues — do not reproduce the full document. For each issue, append a note directly after the relevant sentence:
+1. Search for relevant, credible information using web search
+2. Prioritise sources: regulatory bodies, industry associations (ISPE, PDA, FDA, EMA), peer-reviewed publications, analyst firms (Gartner, Forrester)
+3. Extract key facts, data points, and quotable insights
+4. Present findings with citations:
 
-[Original sentence, reproduced exactly]
+   ```markdown
+   ## Research: [Topic]
 
-**_[Issue Type] – [Severity]:_** _[correction]. Reason: [short explanation referencing the Kneat guideline]._
+   ### Key Findings
+   1. **[Finding]**: [Summary] [Source, Year]
+   2. **[Finding]**: [Summary] [Source, Year]
 
-Severity levels:
-- **High** — affects professionalism, accuracy, or regulatory credibility
-- **Medium** — style and consistency improvements
-- **Low** — minor enhancements
+   ### Data Points
+   - [Statistic with source]
+   - [Statistic with source]
 
-Critical formatting rules:
-- Never rewrite or paraphrase original text — only append notes
-- Issue notes must always appear on a new line with a blank line before and after
-- Ignore semantic markers such as (H1), (H2), (Title) in the source document
-- Ignore decorative separators such as lines of dashes
+   ### Relevant Quotes
+   - "[Quote]" — [Full Name], [Role], [Organisation]
 
----
+   ### Added to outline under: [Section name]
+   ```
 
-## 📑 Priority Notes
+5. Flag any claims that need internal verification before publication
 
-**High Priority (critical errors that affect professionalism or accuracy)**
-- [List each high priority issue]
+### Hook Improvement
 
-**Medium Priority (style and consistency improvements)**
-- [List each medium priority issue]
+When the user shares an introduction or requests hook improvement:
 
-**Low Priority (minor suggestions)**
-- [List each low priority issue]
+1. **Analyse the current hook**:
+   - What works
+   - What could be stronger
+   - Emotional and intellectual impact
+
+2. **Offer 2–3 alternatives**, each with a different approach:
+
+   **Option 1 — Data-driven**: Lead with a surprising statistic or trend.
+   > [Draft]
+   *Why it works: [explanation]*
+
+   **Option 2 — Story / Scenario**: Open with a relatable moment or challenge.
+   > [Draft]
+   *Why it works: [explanation]*
+
+   **Option 3 — Bold claim / Question**: Provoke curiosity or challenge an assumption.
+   > [Draft]
+   *Why it works: [explanation]*
+
+3. **Checklist for the chosen hook**:
+   - Does it create curiosity?
+   - Does it promise value?
+   - Is it specific enough?
+   - Does it match the audience?
+   - Does it comply with Kneat tone — confident, not clickbait?
+
+### Section-by-Section Feedback
+
+As the user writes each section, review for:
+
+```markdown
+## Feedback: [Section Name]
+
+### What Works
+- [Strength 1]
+- [Strength 2]
+
+### Suggestions
+
+**Clarity**: [issue] → [fix]
+**Flow**: [transition or pacing issue] → [improvement]
+**Evidence**: [unsupported claim] → [add citation or example]
+**Editorial compliance**: [any Kneat standard violations] → [correction with rule reference]
+
+### Line-Level Edits
+Original: "[exact quote]"
+Suggested: "[improved version]"
+Reason: [explanation, referencing editorial standard if applicable]
+
+Ready for the next section.
+```
+
+### Voice Preservation
+
+Kneat content has a defined voice, but individual authors within the team may have their own style within that range. To preserve the author's voice:
+
+- If the user provides writing samples or existing content, adapt to their style within Kneat's brand parameters
+- Suggest improvements as options, not directives
+- Ask periodically: "Does this sound right for your voice?"
+- If the user's style conflicts with an editorial standard, flag the standard and let the user decide — do not silently override
+
+### Citation Management
+
+Maintain citations in the user's preferred format. Default to numbered references unless told otherwise:
+
+```markdown
+## References
+
+1. [Author/Organisation]. ([Year]). "[Title]." [Publication/Source].
+2. [Author/Organisation]. ([Year]). "[Title]." [Publication/Source].
+```
+
+For inline references, use `[1]` or `(Source, Year)` based on the user's preference or the conventions of the content type.
 
 ---
 
 ## Final Compliance Check
 
-✅ Did not rewrite or alter original text
-✅ Only appended issues inline in bold italics on new lines
-✅ Reviewed against all Tone, Grammar, Style, and Brand guidelines
-✅ Preserved original formatting
-✅ Ignored semantic markers and decorative separators
-✅ All style rules were correctly followed
+Run this check on every piece of content before delivery. This is mandatory and non-skippable.
 
-If any item cannot be confirmed, replace ✅ with ❌ and add a short explanation.
+```markdown
+## Kneat Editorial Compliance Check
+
+### Spelling & Grammar
+- [ ] American English spelling throughout
+- [ ] Oxford comma in all lists
+- [ ] No passive voice (unless grammatically necessary — flag any exceptions)
+- [ ] No sentence exceeds 25 words
+- [ ] Consistent tense throughout
+- [ ] Subject-verb agreement throughout
+
+### Style
+- [ ] Abbreviations: no periods, spelled out on first use
+- [ ] Numbers: one–nine written out; 10+ as numerals; % symbol used
+- [ ] Dates in Month Day, Year format
+- [ ] Times in H:MM AM/PM format
+- [ ] Currency as $X (no .00 unless cents needed)
+- [ ] Em-dashes: true em-dash with space either side
+- [ ] Ampersands only in titles/brand names; "and" in body
+- [ ] Web headings in sentence case / print headings in title case
+- [ ] Quotation marks: American style, punctuation inside
+
+### Brand Voice
+- [ ] Tone: confident, clear, concise, technically precise, accessible
+- [ ] Organisation names treated as singular ("FDA has" not "FDA have")
+- [ ] Attribution by full name, no honorifics
+- [ ] All regulatory and validation terms used correctly
+- [ ] No region-specific idioms — North American / Northern European neutral
+- [ ] Collaborative partner voice — not distant corporate, not hard-sell
+
+### Content Quality
+- [ ] Hook is compelling and audience-appropriate
+- [ ] All claims supported with evidence or flagged for verification
+- [ ] Logical flow from section to section
+- [ ] CTA present (where applicable)
+- [ ] No orphaned abbreviations (used without prior definition)
+```
+
+If any item fails, fix it before delivery and note what was corrected.
 
 ---
 
-## Workflow B: Tracked Changes + Comments (.docx output)
+## Output Format
 
-### Step 1: Load Standards
-Load `references/editorial-standards.md`. All judgements must be grounded in those rules.
+Deliver all content as a Markdown file (.md) or Word document (.docx) depending on the user's preference. If the user does not specify, ask:
 
-### Step 2: Unpack the document
-```bash
-python scripts/office/unpack.py document.docx unpacked/
-```
+> "Should I deliver this as a Markdown file or a Word document (.docx)?"
 
-### Step 3: Analyse and plan all changes
-Before editing any XML, identify all issues and classify each one:
+For Word documents, follow the docx skill workflow. For Markdown, save to the working directory and present to the user.
 
-**Use tracked changes (w:ins / w:del) for:**
-- Spelling corrections
-- Grammar corrections (word changes, punctuation, Oxford comma, sentence restructuring)
-- Number formatting (e.g. "5" → "five")
-- Abbreviation formatting (e.g. "F.D.A." → "FDA")
-
-**Use comments for:**
-- Style issues that require human judgement (heading case, date/time/currency format)
-- Brand voice issues (tone, passive voice, sentence length, organisation name usage, honorifics)
-- Any issue where the correction is a suggestion rather than a direct fix
-
-Author for all tracked changes and comments: **"Claude"**
-
-### Step 4: Implement tracked changes in word/document.xml
-
-Use the Edit tool directly for XML replacement. Do not write Python scripts.
-
-Insertion pattern:
-```xml
-<w:ins w:id="[unique_id]" w:author="Claude" w:date="2025-01-01T00:00:00Z">
-  <w:r><w:t>corrected text</w:t></w:r>
-</w:ins>
-```
-
-Deletion pattern:
-```xml
-<w:del w:id="[unique_id]" w:author="Claude" w:date="2025-01-01T00:00:00Z">
-  <w:r><w:delText>original text</w:delText></w:r>
-</w:del>
-```
-
-For a change (delete old, insert new), use del and ins as siblings. Preserve the original run's `<w:rPr>` formatting block in both. Only mark the exact text that changes — leave surrounding text in its original runs.
-
-### Step 5: Add comments via comment.py
-
-```bash
-python scripts/comment.py unpacked/ [id] "[comment text]" --author "Claude"
-```
-
-Then add comment range markers in document.xml around the relevant text:
-```xml
-<w:commentRangeStart w:id="[id]"/>
-[original runs]
-<w:commentRangeEnd w:id="[id]"/>
-<w:r><w:rPr><w:rStyle w:val="CommentReference"/></w:rPr><w:commentReference w:id="[id]"/></w:r>
-```
-
-Comment text should follow this format: **[Issue Type] – [Severity]: [correction]. Reason: [short explanation referencing the Kneat guideline].**
-
-### Step 6: Repack
-```bash
-python scripts/office/pack.py unpacked/ reviewed-[original-filename].docx --original document.docx
-```
-
-### Step 7: Deliver
-Return the reviewed .docx file to the user with a brief summary:
-- How many tracked changes were made
-- How many comments were added
-- Any High severity issues to flag specifically
+Always include the completed compliance checklist at the end of the delivered content (as an appendix or separate section) so the user can see what was checked.
 
 ---
 
 ## Relationship to Other Skills
 
-- **kneat-content-writer**: Use for *creating new content* from scratch. If a user asks to write, outline, draft, or research content rather than review an existing document, defer to that skill.
-- This skill focuses exclusively on *reviewing existing content* against Kneat editorial standards.
+- **kneat-content-editor**: Use for reviewing *existing* content against editorial standards. If a user uploads a document for review, defer to that skill.
+- **branded-frontend**: Use if the content needs to be rendered as a web page or UI component with Kneat's visual identity.
+
+This skill focuses exclusively on *creating new content* from scratch and guiding the user through the writing process — from long-form content like blog posts and white papers through to short-form LinkedIn/email outreach copy.
